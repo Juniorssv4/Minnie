@@ -88,7 +88,7 @@ Text: {text}"""
 # UI – Minnie branding
 st.set_page_config(
     page_title="Minnie",
-    page_icon="🐶",  # Cute dog emoji – you can replace with image URL later
+    page_icon="🐶",  # Cute dog emoji
     layout="centered"
 )
 
@@ -105,9 +105,14 @@ with tab1:
             result = translate_text(text, direction)
             st.success("Translation:")
             
-            # Show translated text
-            st.markdown("**Translated text:**")
-            st.code(result, language=None)
+            # Show full translated text in scrollable text area
+            st.text_area(
+                "Translated text (scroll if long):",
+                value=result,
+                height=250,
+                disabled=True,
+                key=f"translated_{time.time()}"
+            )
             
             # Copy button with JS + green success feedback
             copy_js = f"""
