@@ -37,7 +37,7 @@ def safe_generate_content(prompt):
 try:
     # Super strong cache-bust to break GitHub CDN and browser cache
     cache_bust = f"{int(time.time() * 1000)}_{str(uuid.uuid4())[:8]}_{str(hash(str(time.time())))[-6:]}"
-    raw_url = f"https://raw.githubusercontent.com/Juniorssv4/minnie-final/main/glossary.txt?cachebust={cache_bust}"
+    raw_url = f"https://raw.githubusercontent.com/Juniorssv4/minnie/main/glossary.txt?cachebust={cache_bust}"
     response = requests.get(raw_url, timeout=10)
     response.raise_for_status()
     lines = response.text.splitlines()
@@ -85,10 +85,10 @@ Text: {text}"""
         st.error(f"API error: {str(e)}")
         return "[Failed — try again]"
 
-# UI
+# UI – Minnie branding
 st.set_page_config(
     page_title="Minnie",
-    page_icon="🐶",  # Cute dog emoji as icon
+    page_icon="🐶",  # Cute dog emoji – you can replace with image URL later
     layout="centered"
 )
 
