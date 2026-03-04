@@ -104,21 +104,22 @@ with tab1:
             result = translate_text(text, direction)
             st.success("Translation:")
             
-            # Clear, black text on dark background for better visibility
+            # White box with black text – clear and high contrast
             st.markdown(
                 f"""
                 <div style="
-                    background-color: #1e1e1e;
-                    color: #ffffff;
-                    padding: 16px;
+                    background-color: white;
+                    color: black;
+                    padding: 20px;
                     border-radius: 8px;
-                    border: 1px solid #444;
+                    border: 1px solid #ddd;
                     white-space: pre-wrap;
-                    font-family: monospace;
-                    font-size: 16px;
-                    line-height: 1.6;
-                    max-height: 400px;
+                    font-family: sans-serif;
+                    font-size: 18px;
+                    line-height: 1.7;
+                    max-height: 500px;
                     overflow-y: auto;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
                 ">
                 {result}
                 </div>
@@ -135,15 +136,15 @@ with tab1:
                     background-color: #2e7d32;
                     color: white;
                     border: none;
-                    padding: 10px 16px;
+                    padding: 12px 20px;
                     border-radius: 6px;
                     cursor: pointer;
                     font-size: 16px;
-                    margin-top: 12px;
+                    margin-top: 16px;
                 ">
                     📋 Copy to Clipboard
                 </button>
-                <p id="copy-success" style="color:#66bb6a; display:none; margin-top:8px; font-weight:bold;">
+                <p id="copy-success" style="color:#2e7d32; display:none; margin-top:8px; font-weight:bold; font-size:16px;">
                     ✅ Copied!
                 </p>
             """
