@@ -87,11 +87,22 @@ Text: {text}"""
 # UI
 st.set_page_config(
     page_title="Minnie",
-    page_icon="🐶",
+    page_icon="🐶",  # Default dog – will be overridden by custom title image
     layout="centered"
 )
 
-st.title("🐶 Minnie — Meena's Translator")
+# Custom title with pig image
+st.markdown(
+    """
+    <div style="text-align: center;">
+        <img src="https://raw.githubusercontent.com/Juniorssv4/minnie/main/minnie.png"  # ← your uploaded pig image
+             width="140" 
+             style="border-radius: 50%; border: 3px solid #ff69b4; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-bottom: 10px;">
+        <h1 style="margin: 0; color: #d81b60; font-family: 'Comic Sans MS', sans-serif;">Minnie — Meena's Translator</h1>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 direction = st.radio("Direction", ["English → Lao", "Lao → English"], horizontal=True)
 
