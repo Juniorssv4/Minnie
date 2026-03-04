@@ -84,21 +84,23 @@ Text: {text}"""
         st.error(f"API error: {str(e)}")
         return "[Failed — try again]"
 
-# UI
+# UI – Minnie with cute pig image in title
 st.set_page_config(
     page_title="Minnie",
-    page_icon="🐶",  # Default dog – will be overridden by custom title image
+    page_icon="https://raw.githubusercontent.com/Juniorssv4/minnie/main/minnie.png",  # your uploaded pig image
     layout="centered"
 )
 
 # Custom title with pig image
 st.markdown(
     """
-    <div style="text-align: center;">
-        <img src="https://raw.githubusercontent.com/Juniorssv4/minnie/main/minnie.png"  # ← your uploaded pig image
-             width="140" 
-             style="border-radius: 50%; border: 3px solid #ff69b4; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-bottom: 10px;">
-        <h1 style="margin: 0; color: #d81b60; font-family: 'Comic Sans MS', sans-serif;">Minnie — Meena's Translator</h1>
+    <div style="text-align: center; margin-bottom: 30px;">
+        <img src="https://raw.githubusercontent.com/Juniorssv4/minnie/main/minnie.png" 
+             width="160" 
+             style="border-radius: 50%; border: 5px solid #ff69b4; box-shadow: 0 6px 15px rgba(0,0,0,0.2);">
+        <h1 style="margin: 15px 0 0; color: #c2185b; font-family: 'Comic Sans MS', cursive;">
+            Minnie — Meena's Translator
+        </h1>
     </div>
     """,
     unsafe_allow_html=True
@@ -123,7 +125,7 @@ with tab1:
                     color: black;
                     padding: 20px;
                     border-radius: 8px;
-                    border: 1px solid #ddd;
+                    border: 1px solid #ccc;
                     white-space: pre-wrap;
                     font-family: sans-serif;
                     font-size: 18px;
