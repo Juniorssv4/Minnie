@@ -35,7 +35,6 @@ def safe_generate_content(prompt):
 
 # Glossary from repo file – FORCE FRESH LOAD EVERY TIME, NO CACHE
 try:
-    # Super strong cache-bust to break GitHub CDN and browser cache
     cache_bust = f"{int(time.time() * 1000)}_{str(uuid.uuid4())[:8]}_{str(hash(str(time.time())))[-6:]}"
     raw_url = f"https://raw.githubusercontent.com/Juniorssv4/minnie/main/glossary.txt?cachebust={cache_bust}"
     response = requests.get(raw_url, timeout=10)
@@ -85,10 +84,10 @@ Text: {text}"""
         st.error(f"API error: {str(e)}")
         return "[Failed — try again]"
 
-# UI – Minnie branding
+# UI
 st.set_page_config(
     page_title="Minnie",
-    page_icon="🐶",  # Cute dog emoji
+    page_icon="🐶",
     layout="centered"
 )
 
@@ -105,24 +104,50 @@ with tab1:
             result = translate_text(text, direction)
             st.success("Translation:")
             
-            # Show full translated text in scrollable text area
-            st.text_area(
-                "Translated text (scroll if long):",
-                value=result,
-                height=250,
-                disabled=True,
-                key=f"translated_{time.time()}"
+            # Clear, black text on dark background for better visibility
+            st.markdown(
+                f"""
+                <div style="
+                    background-color: #1e1e1e;
+                    color: #ffffff;
+                    padding: 16px;
+                    border-radius: 8px;
+                    border: 1px solid #444;
+                    white-space: pre-wrap;
+                    font-family: monospace;
+                    font-size: 16px;
+                    line-height: 1.6;
+                    max-height: 400px;
+                    overflow-y: auto;
+                ">
+                {result}
+                </div>
+                """,
+                unsafe_allow_html=True
             )
             
-            # Copy button with JS + green success feedback
+            # Copy button with green success feedback
             copy_js = f"""
                 <button onclick="navigator.clipboard.writeText(`{result.replace('`', '\\`').replace('"', '\\"')}`).then(() => {{
                     document.getElementById('copy-success').style.display = 'block';
                     setTimeout(() => {{ document.getElementById('copy-success').style.display = 'none'; }}, 3000);
-                }})">📋 Copy to Clipboard</button>
-                <p id="copy-success" style="color:green; display:none; margin-top:8px; font-weight:bold;">✅ Copied!</p>
+                }})" style="
+                    background-color: #2e7d32;
+                    color: white;
+                    border: none;
+                    padding: 10px 16px;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-size: 16px;
+                    margin-top: 12px;
+                ">
+                    📋 Copy to Clipboard
+                </button>
+                <p id="copy-success" style="color:#66bb6a; display:none; margin-top:8px; font-weight:bold;">
+                    ✅ Copied!
+                </p>
             """
-            st.components.v1.html(copy_js, height=60)
+            st.components.v1.html(copy_js, height=80)
 
 with tab2:
     uploaded_file = st.file_uploader("Upload DOCX • XLSX • PPTX (max 50MB)", type=["docx", "xlsx", "pptx"])
@@ -210,13 +235,7 @@ with tab2:
 
 # Teach term (manual in GitHub)
 with st.expander("➕ Teach Minnie a new term (edit glossary.txt in GitHub)"):
-    st.info("To add term: Edit glossary.txt in repo → add line 'english:lao' → save → click the red reload button below or refresh page.")
+    st.info("To add term: Edit glossary.txt in repo → add line 'english:lao' → save → refresh page.")
     st.code("Example:\nSamir:ສະຫມີຣ\nhello:ສະບາຍດີ")
-
-# Big red manual reload button – click this RIGHT AFTER you commit changes to glossary.txt
-st.markdown("---")
-st.markdown("<h3 style='color:red;'>If you just edited glossary.txt on GitHub, click this button now:</h3>", unsafe_allow_html=True)
-if st.button("🔴 RELOAD GLOSSARY FROM GITHUB (click after editing & committing)", type="primary", use_container_width=True):
-    st.rerun()
 
 st.caption(f"Active glossary: {len(glossary)} terms • Model: {st.session_state.current_model}")
