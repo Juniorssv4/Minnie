@@ -84,27 +84,14 @@ Text: {text}"""
         st.error(f"API error: {str(e)}")
         return "[Failed — try again]"
 
-# UI – Minnie with cute pig image in title
+# UI
 st.set_page_config(
     page_title="Minnie",
-    page_icon="https://raw.githubusercontent.com/Juniorssv4/minnie/main/minnie.png",  # your uploaded pig image
+    page_icon="🌹",  # Pink rose emoji – cute, reliable, no upload needed
     layout="centered"
 )
 
-# Custom title with pig image
-st.markdown(
-    """
-    <div style="text-align: center; margin-bottom: 30px;">
-        <img src="https://raw.githubusercontent.com/Juniorssv4/minnie/main/minnie.png" 
-             width="160" 
-             style="border-radius: 50%; border: 5px solid #ff69b4; box-shadow: 0 6px 15px rgba(0,0,0,0.2);">
-        <h1 style="margin: 15px 0 0; color: #c2185b; font-family: 'Comic Sans MS', cursive;">
-            Minnie — Meena's Translator
-        </h1>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.title("🌹 Minnie — Meena's Translator")
 
 direction = st.radio("Direction", ["English → Lao", "Lao → English"], horizontal=True)
 
